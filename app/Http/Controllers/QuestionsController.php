@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Questions\CreateQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::paginate(10);
+        $questions = Question::with('owner')->latest()->paginate(10);
         return view('questions.index', compact(['questions']));
     }
 
@@ -25,7 +26,7 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('questions.create');
     }
 
     /**
@@ -34,9 +35,15 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateQuestionRequest $request)
     {
-        //
+        auth()->user()->questions()->create([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        session()->flash('success', 'Quesion has been asked successfully!');
+        return redirect(route('questions.index'));
     }
 
     /**
