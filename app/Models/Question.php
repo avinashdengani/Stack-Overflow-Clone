@@ -12,6 +12,26 @@ class Question extends Model
 
     protected $guarded = ['id'];
 
+
+    public function getUrlAttribute()
+    {
+        return "questions/{$this->id}";
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+    public function getAnswerStyleAttribute()
+    {
+        if($this->answers_count > 0) {
+            if($this->best_answer_id) {
+                return "has-best-answer";
+            }
+            return "answered";
+        }
+        return "unanswered";
+    }
     /**
      * MUTATORS
     */
@@ -21,6 +41,7 @@ class Question extends Model
         $this->attributes['title'] = $title;
         $this->attributes['slug'] = Str::slug($title);
     }
+
 
     /**
      * RELATIONSHIP METHODS
