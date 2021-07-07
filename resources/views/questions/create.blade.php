@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header"><h2>Ask a Question!</h2></div>
                         <div class="card-body">
-                            <form action="{{ route('questions.store') }}" method="POST">
+                            <form action="{{ route('questions.store') }}" method="POST" id="create-question-form">
                                 @csrf
                                 <div class="form-group">
                                     <label for="title">Title</label>
@@ -38,6 +38,30 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js" integrity="sha512-2RLMQRNr+D47nbLnsbEqtEmgKy67OSCpWJjJM394czt99xj3jJJJBQ43K7lJpfYAYtvekeyzqfZTx2mqoDh7vg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $("#create-question-form").validate({
+            rules: {
+                title: {
+                    required: true,
+                    maxlength: 255
+                },
+                body: {
+                    required: true
+                }
+            },
+            errorElement: 'p',
+            errorPlacement: function(error, element) {
+                if (error) {
+                    error.insertAfter(element);
+                    error.addClass('text-danger');
+                }
+            }
+        });
+
+    </script>
 @endsection
 
 @section('styles')
