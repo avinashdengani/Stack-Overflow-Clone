@@ -10,6 +10,11 @@ class Answer extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     public static function boot()
     {
         parent::boot();
