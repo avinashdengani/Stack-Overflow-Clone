@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Questions\CreateQuestionRequest;
+use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +60,8 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        $question->increment('views_count');
+        return view('questions.show', compact(['question']));
     }
 
     /**
@@ -65,7 +72,10 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        if(Gate::allows('update-question', $question)) {
+            return view('questions.edit', compact(['question']));
+        }
+        abort(403, 'Access Denied');
     }
 
     /**
@@ -75,9 +85,17 @@ class QuestionsController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(UpdateQuestionRequest $request, Question $question)
     {
-        //
+        if(Gate::allows('update-question', $question)) {
+            $question->update([
+                'title' => $request->title,
+                'body' => $request->body
+            ]);
+            session()->flash('success', 'Quesion has been updated successfully!');
+            return redirect(route('questions.index'));
+        }
+        abort(403, 'Access Denied');
     }
 
     /**
@@ -88,6 +106,11 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        if(auth()->user()->can('delete question', $question)) {
+            $question->delete();
+            session()->flash('success', 'Quesion has been deleted successfully!');
+            return redirect(route('questions.index'));
+        }
+        abort(403, 'Access Denied');
     }
 }
