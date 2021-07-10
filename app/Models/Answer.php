@@ -10,6 +10,14 @@ class Answer extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    public static function boot()
+    {
+        parent::boot();
+        static::created(function(Answer $answer){
+            $answer->question->increment('answers_count');
+        });
+    }
+
     public function question()
     {
         return $this->belongsTo(Question::class);
