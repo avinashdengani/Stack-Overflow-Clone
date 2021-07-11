@@ -18,8 +18,19 @@
                                     <a href="" title="Down Vote" class="vote-down d-block text-center text-black-50"><i class="fa fa-caret-down fa-3x" ></i></a>
                                 </div>
                                 <div class="ml-5 mt-3">
-                                    <a href=""  title="Mark as favorite" class="favorite d-block text-center text-dark mb-2"><i class="fa fa-star fa-2x" ></i></a>
-                                    <h4 class="views-count text-muted text-center m-0">123</h4>
+                                    @can('markAsFavorite', $question)
+                                        <form method="POST"
+                                            action="{{route($question->is_favorite ? 'questions.unfavorite' : 'questions.favorite', $question->id)}}">
+                                            @csrf
+                                            @if ($question->is_favorite)
+                                                @method('DELETE')
+                                            @endif
+                                            <button type="submit" class="btn {{$question->favorite_style}}"><i class="fa fa-star fa-2x {{$question->favorite_style}}" ></i></button>
+                                        </form>
+                                    @else
+                                        <i class="fa fa-star-o fa-2x text-golden d-block" ></i>
+                                    @endcan
+                                    <h4 class="text-center m-0 {{$question->favorite_style}}">{{$question->favorites_count}}</h4>
                                 </div>
                             </div>
                             <div class="d-flex flex-column">
@@ -45,3 +56,10 @@
     @include('answers._create')
     </div>
 @endsection
+
+@section('styles')
+    <style>
+        .text-golden{
+            color: goldenrod;
+        }
+    </style>
