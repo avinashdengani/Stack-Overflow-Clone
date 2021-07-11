@@ -32,6 +32,21 @@ class Question extends Model
         }
         return "unanswered";
     }
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
+    public function getIsFavoriteAttribute()
+    {
+        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+    }
+    public function getFavoriteStyleAttribute()
+    {
+        if($this->getIsFavoriteAttribute()) {
+            return 'text-golden';
+        }
+        return 'text-black-50';
+    }
     /**
      * MUTATORS
     */
@@ -58,5 +73,9 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
