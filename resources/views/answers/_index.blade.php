@@ -15,7 +15,17 @@
                                 <a href="" title="Down Vote" class="vote-down d-block text-center text-black-50"><i class="fa fa-caret-down fa-3x" ></i></a>
                             </div>
                             <div class="ml-5 mt-3">
-                                <a href=""  title="Mark as correct" class="correct d-block text-center text-dark mb-2"><i class="fa fa-check fa-2x" ></i></a>
+                                @can('markAsBest', $answer)
+                                    <form action="{{route('answers.bestAnswer', $answer->id)}}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" title="Mark as Best answer" class="btn {{$answer->best_answer_style}}"><i class="fa fa-check fa-2x" ></i></button>
+                                    </form>
+                                @else
+                                    @if ($answer->is_best_answer)
+                                        <i class="fa fa-check fa-2x text-success d-block mb-2"></i>
+                                    @endif
+                                @endcan
                                 <h4 class="views-count text-muted text-center m-0">123</h4>
                             </div>
 
