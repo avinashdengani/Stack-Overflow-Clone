@@ -42,6 +42,11 @@ class Question extends Model
         $this->attributes['slug'] = Str::slug($title);
     }
 
+    public function markBestAnswer(Answer $answer)
+    {
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
 
     /**
      * RELATIONSHIP METHODS
