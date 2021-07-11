@@ -15,6 +15,18 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
     }
 
+    public function getBestAnswerStyleAttribute()
+    {
+        if($this->id === $this->question->best_answer_id) {
+            return "text-success";
+        }
+        return "text-dark";
+    }
+    public function getIsBestAnswerAttribute()
+    {
+        return $this->id === $this->question->best_answer_id;
+    }
+
     public static function boot()
     {
         parent::boot();
