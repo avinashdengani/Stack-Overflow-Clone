@@ -39,8 +39,8 @@ class AnswersController extends Controller
         $answer->update([
             'body' => $request->body
         ]);
-        session()->flash('success', 'Yor answer has been edited successfully!');
-       return redirect($question->url);
+        session()->flash('success', 'Your answer has been edited successfully!');
+        return redirect($question->url);
     }
 
     /**
@@ -52,5 +52,12 @@ class AnswersController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function bestAnswer(Answer $answer)
+    {
+        $this->authorize('markAsBest', $answer);
+        $answer->question->markBestAnswer($answer);
+        session()->flash('success', 'Answer has been marked as BEST ANSWER successfully!');
+        return redirect()->back();
     }
 }
