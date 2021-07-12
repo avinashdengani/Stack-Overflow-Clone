@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Question;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -16,9 +17,9 @@ class NewReplyAdded extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Question $question)
     {
-        //
+        $this->question = $question;
     }
 
     /**
@@ -41,8 +42,8 @@ class NewReplyAdded extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('Someone has answered to your question.')
+                    ->action('View Question', url($this->question->url))
                     ->line('Thank you for using our application!');
     }
 
