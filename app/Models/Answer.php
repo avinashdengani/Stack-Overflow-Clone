@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Helpers\Votable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
     use HasFactory;
+    use Votable;
+
     protected $guarded = ['id'];
 
     public function getCreatedDateAttribute()
@@ -46,5 +49,9 @@ class Answer extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function votes()
+    {
+        return $this->morphToMany(User::class, 'vote')->withTimestamps();
     }
 }
