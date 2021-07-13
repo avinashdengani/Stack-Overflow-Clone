@@ -29,6 +29,15 @@
 </head>
 <body>
     <div id="app">
+
+        <!-- Page Loader
+        ===================================== -->
+        <div id="pageloader" class="bg-grad-animation-1">
+            <div class="loader-item">
+                <img src="{{ asset('images/loader/stack-overflow.svg') }}" alt="icon-loader-image">
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}"> <img src="{{asset('images/logo/logo.png')}}" alt="logo" width="40" height="40">Stack Overflow Clone</a>
@@ -94,6 +103,18 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            /* --------------------------------------------------------
+            PAGE LOADER
+            ----------------------------------------------------------- */
+            $(function() {
+                "use strict";
+                    $(".loader-item").delay(1000).fadeOut();
+                    $("#pageloader").delay(1000).fadeOut("slow");
+                });
+        }(jQuery));
+    </script>
     @yield('scripts')
 </body>
 </html>
