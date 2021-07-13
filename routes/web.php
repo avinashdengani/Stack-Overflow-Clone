@@ -32,3 +32,4 @@ Route::post('questions/{question}/favorite',[FavoritesController::class, 'store'
 Route::delete('questions/{question}/unfavorite',[FavoritesController::class, 'destroy'] )->name('questions.unfavorite');
 Route::post('questions/{question}/vote/{vote}',[VotesController::class, 'voteQuestion'])->name('questions.vote');
 Route::post('answers/{answer}/vote/{vote}',[VotesController::class, 'voteAnswer'])->name('answers.vote');
+Route::get('users/notifications', [UsersController::class, 'notifications'])->name('users.notifications');
