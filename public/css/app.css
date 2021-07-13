@@ -10045,3 +10045,34 @@ h3 {
   width: 200px;
   height: 200px;
 }
+
+.form-search input[type=text] {
+  height: 50px;
+  border: 1px solid #e7e7e7;
+  width: 500px;
+  padding: 0 20px;
+  outline: none;
+}
+@media (max-width: 1200px) and (min-width: 990px) {
+  .form-search input[type=text] {
+    width: 250px;
+  }
+}
+@media (max-width: 990px) and (min-width: 768px) {
+  .form-search input[type=text] {
+    width: 190px;
+  }
+}
+.form-search input::-webkit-input-placeholder {
+  text-transform: inherit;
+  font-size: 18px;
+  font-family: "Open Sans", sans-serif;
+}
+.form-search button {
+  border: 0;
+  height: 50px;
+  color: #000;
+  width: 40px;
+  padding: 10px;
+  outline: none;
+}

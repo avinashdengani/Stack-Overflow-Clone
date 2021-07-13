@@ -84,4 +84,16 @@ class Question extends Model
     {
         return $this->morphToMany(User::class, 'vote')->withTimestamps();
     }
+
+    /**
+     * SCOPES
+     */
+    public function scopeSearch($query)
+    {
+        $search = request('search');
+        if($search) {
+            return $query->where("title", "like", "%$search%")->orWhere("body", "like", "%$search%");
+        }
+        return $query;
+    }
 }

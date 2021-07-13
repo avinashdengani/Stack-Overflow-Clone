@@ -54,7 +54,7 @@
                 <hr>
                 @endforeach
                 <div class="card-footer">
-                    {{ $questions->links() }}
+                    {{ $questions->appends(['search' => request('search')])->links() }}
                 </div>
             </div>
         </div>
