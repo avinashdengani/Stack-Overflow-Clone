@@ -17,6 +17,7 @@ class CreateQuestionUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('question_id');
+            $table->boolean('is_favorite')->default(false);
             $table->timestamps();
 
             $table->unique(['user_id', 'question_id']);
