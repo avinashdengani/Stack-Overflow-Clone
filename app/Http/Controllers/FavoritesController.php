@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
-    public function store(Question $question)
+    public function favorite(Question $question)
     {
-        $question->favorites()->attach(auth()->id());
+        $question->views()->update(['is_favorite' => 1]);
         return redirect()->back();
     }
-    public function destroy(Question $question)
+    public function unfavorite(Question $question)
     {
-        $question->favorites()->detach(auth()->id());
+        $question->FavoritesUserId()->update(['is_favorite' => 0]);
         return redirect()->back();
     }
 }
