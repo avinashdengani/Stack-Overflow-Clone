@@ -14,15 +14,18 @@
                     <div class="media">
                         <div class="mr-4 statistics">
                             <div class="votes text-center mb-3">
-                                <strong class="d-block">{{ $question->votes_count }}</strong> Votes
+                                <strong class="d-block">{{ $question->votes_count }}</strong>
+                                {{Str::plural('Vote', $question->votes_count)}}
                             </div>
                             <a href="{{$question->url}}" class="nav-link">
                                 <div class="text-center mb-3 answers {{ $question->answer_style }}">
-                                        <strong class="d-block">{{ $question->answers_count }}</strong> Answers
+                                        <strong class="d-block">{{ $question->answers_count }}</strong>
+                                        {{Str::plural('Answer', $question->answers_count)}}
                                 </div>
                             </a>
                             <div class="views text-center">
-                                <strong class="d-block">{{ $question->views_count }}</strong> Views
+                                <strong class="d-block">{{ $question->views_count }}</strong>
+                                {{Str::plural('View', $question->views_count)}}
                             </div>
                         </div>
                         <div class="media-body">

@@ -56,14 +56,25 @@
 
                                 @can('update', $answer)
                                     <div class="d-block  mt-3">
-                                        <a href="{{route('questions.answers.edit', [$question->id, $answer->id])}}" class="btn btn-sm btn-outline-info"><i class="fa fa-edit fa-2x" ></i></a>
+                                        <a
+                                            href="{{route('questions.answers.edit', [$question->id, $answer->id])}}"
+                                            class="btn btn-sm btn-outline-info"
+                                            title="Edit your answer">
+                                                <i class="fa fa-edit fa-2x" ></i>
+                                        </a>
                                     </div>
                                 @endcan
                                 @can('delete', $answer)
                                     <form action="{{route('questions.answers.destroy', [$question->id, $answer->id])}}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger mt-3 " onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash fa-2x" ></i></button>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-outline-danger mt-3 "
+                                            onclick="return confirm('Are you sure you want to delete?')"
+                                            title="Delete your answer">
+                                                <i class="fa fa-trash fa-2x" ></i>
+                                        </button>
                                     </form>
                                 @endcan
                             </div>

@@ -18,7 +18,7 @@
                             <div class="d-block">
                                 <div class="float-left mt-1">
                                     <div class="d-flex">
-                                        <p class="text-muted"><i class="fa phpdebugbar-fa-eye fa-2x"></i></p>
+                                        <p class="text-muted"><i class="fa fa-eye fa-2x"></i></p>
                                         <h4 class="mt-1 ml-1 text-muted">{{$question->views_count}}</h4>
                                     </div>
                                 </div>
@@ -70,9 +70,7 @@
                                         <form method="POST"
                                             action="{{route($question->is_favorite ? 'questions.unfavorite' : 'questions.favorite', $question->id)}}" class="m-0">
                                             @csrf
-                                            @if ($question->is_favorite)
-                                                @method('DELETE')
-                                            @endif
+                                            @method('PUT')
                                             <button type="submit"
                                                     class="btn p-0 {{$question->favorite_style}}"
                                                     title="{{$question->is_favorite ? 'Mark as unfavorite' : 'Mark as favorite'}}">
@@ -82,7 +80,30 @@
                                     @else
                                         <i class="fa fa-star-o fa-2x text-golden d-block" ></i>
                                     @endcan
-                                    <h4 class="text-center mt-1 {{$question->favorite_style}}">{{$question->favorites_count}}</h4>
+                                    <h4 class="@if ($question->favorites_count > 0 || $question->favorites_count < 9) ml-2 @endif mt-1 {{$question->favorite_style}}">{{$question->favorites_count}}</h4>
+                                    @can('update', $question)
+                                        <div class="d-block  mt-3">
+                                            <a
+                                                href="{{ route('questions.edit', $question->id) }}"
+                                                class="btn btn-sm btn-outline-info"
+                                                title="Edit your question">
+                                                <i class="fa fa-edit fa-2x" ></i>
+                                            </a>
+                                        </div>
+                                    @endcan
+                                    @can('delete', $question)
+                                        <form action="{{ route('questions.destroy', $question->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                type="submit"
+                                                class="btn btn-sm btn-outline-danger mt-3"
+                                                onclick="return confirm('Are you sure you want to delete')"
+                                                title="Delete your question">
+                                                <i class="fa fa-trash fa-2x" ></i>
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </div>
                             </div>
                             <div class="question-body">
