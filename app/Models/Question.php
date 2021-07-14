@@ -36,11 +36,11 @@ class Question extends Model
     }
     public function getFavoritesCountAttribute()
     {
-        return $this->favorites->count();
+        return $this->views()->where('is_favorite', 1)->count();
     }
     public function getIsFavoriteAttribute()
     {
-        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+        return $this->favoritesUserId()->where('is_favorite', 1)->count() > 0;
     }
     public function getFavoriteStyleAttribute()
     {
@@ -48,6 +48,14 @@ class Question extends Model
             return 'text-golden';
         }
         return 'text-black-50';
+    }
+    public function getViewsCountAttribute()
+    {
+        return $this->views->count();
+    }
+    public function getIsViewedAttribute()
+    {
+        return $this->favoritesUserId()->count() > 0;
     }
     /**
      * MUTATORS
@@ -64,7 +72,12 @@ class Question extends Model
         $this->best_answer_id = $answer->id;
         $this->save();
     }
-
+    public function viewsCountIncrement(Question $question)
+    {
+        if( (auth()->check()) && ($question->owner->id != auth()->id()) && !($question->is_viewed)) {
+                $question->views()->attach(auth()->id());
+        }
+    }
     /**
      * RELATIONSHIP METHODS
      */
@@ -76,15 +89,14 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
-    public function favorites()
-    {
-        return $this->belongsToMany(User::class)->withTimestamps();
-    }
     public function votes()
     {
         return $this->morphToMany(User::class, 'vote')->withTimestamps();
     }
-
+    public function views()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
     /**
      * SCOPES
      */
@@ -95,5 +107,9 @@ class Question extends Model
             return $query->where("title", "like", "%$search%")->orWhere("body", "like", "%$search%");
         }
         return $query;
+    }
+    public function scopeFavoritesUserId($quesry)
+    {
+        return $this->views()->where('user_id', '=', auth()->id());
     }
 }
