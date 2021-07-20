@@ -1,9 +1,9 @@
 @extends('layouts.app')
-
+@section('title', 'Questions | Stack Overflow Clone')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-16">
             <div class="d-flex justify-content-end mb-2">
                 <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Ask Question</a>
             </div>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                {!! !($loop->last) ? '<hr>': '' !!}
                 @endforeach
                 <div class="card-footer">
                     {{ $questions->appends(['search' => request('search')])->links() }}
