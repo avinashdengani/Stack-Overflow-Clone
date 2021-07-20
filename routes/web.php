@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AnswersController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VotesController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +20,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/', [DashboardController::class, 'index'])->name('index');
+
 Auth::routes();
 
 Route::resource('questions', QuestionsController::class)->except('show');
+Route::get('questions/favorites', [FavoritesController::class, 'index'])->name('questions.favorites')->middleware(['auth']);
+Route::get('questions/your-questions', [QuestionsController::class, 'yourQuestions'])->name('questions.your-questions')->middleware(['auth']);
 Route::get('questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
 Route::resource('questions.answers', AnswersController::class)->except(['index', 'create', 'show']);
 Route::put('answers/{answer}/best-answer', [AnswersController::class, 'bestAnswer'])->name('answers.bestAnswer');
