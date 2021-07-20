@@ -38,9 +38,10 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}"> <img src="{{asset('images/logo/logo.png')}}" alt="logo" width="40" height="40">Stack Overflow Clone</a>
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand default-logo" href="{{ url('/') }}"> <img src="{{asset('images/logo/logo.png')}}" alt="logo" width="40" height="40">Stack Overflow Clone</a>
+                <a class="navbar-brand media-logo" href="{{ url('/') }}"> <img src="{{asset('images/logo/logo.png')}}" alt="logo" width="40" height="40"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -48,23 +49,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                         <!-- Search
-                        ===================================== -->
-                        <div class="pr25 pl25 clearfix">
-                            <form action="#">
-                                <div class="form-search">
-                                    <form action="{{asset('/')}}">
-                                        <input type="text"
-                                            name="search"
-                                            placeholder="e.g. Javascript"
-                                            value="{{request('search')}}">
-                                        <button type="submit" class="pull-right">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </form>
-                        </div>
+                        @include('layouts.partials._default-nav')
+                        @include('layouts.partials._media-nav')
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -113,6 +99,7 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://unpkg.com/imagesloaded@latest/imagesloaded.pkgd.min.js"></script>
     <script>
         $(document).ready(function() {
             /* --------------------------------------------------------
@@ -120,9 +107,11 @@
             ----------------------------------------------------------- */
             $(function() {
                 "use strict";
-                    $(".loader-item").delay(1000).fadeOut();
-                    $("#pageloader").delay(1000).fadeOut("slow");
+                $("body").imagesLoaded(function(){
+                    $(".loader-item").delay(700).fadeOut();
+                    $("#pageloader").delay(800).fadeOut("slow");
                 });
+	        });
         }(jQuery));
     </script>
     @yield('scripts')
