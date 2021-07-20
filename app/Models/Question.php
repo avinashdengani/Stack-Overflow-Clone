@@ -78,6 +78,10 @@ class Question extends Model
                 $question->views()->attach(auth()->id());
         }
     }
+    public function favoritesUserId()
+    {
+        return $this->views()->where('user_id', '=', auth()->id());
+    }
     /**
      * RELATIONSHIP METHODS
      */
@@ -107,9 +111,5 @@ class Question extends Model
             return $query->where("title", "like", "%$search%")->orWhere("body", "like", "%$search%");
         }
         return $query;
-    }
-    public function scopeFavoritesUserId($quesry)
-    {
-        return $this->views()->where('user_id', '=', auth()->id());
     }
 }
