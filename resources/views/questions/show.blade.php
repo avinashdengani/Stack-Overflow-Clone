@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Answers | Stack Overflow Clone')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -121,13 +121,3 @@
     </div>
     </div>
 @endsection
-
-@section('styles')
-    <style>
-        .text-golden{
-            color: goldenrod;
-        }
-        .votes-count-text {
-            margin: 0 0 0 .45rem;
-        }
-    </style>
