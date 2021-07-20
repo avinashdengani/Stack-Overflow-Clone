@@ -60,12 +60,14 @@
         padding: 0 20px;
         outline: none;
 
-        @media (max-width: 1200px) and (min-width: 990px){
-            width: 250px;
+        @media (max-width: 1750px) and (min-width:1200px){
+            width: 260px;
         }
-
+        @media (max-width: 1200px) and (min-width: 990px){
+            width: 150px;
+        }
         @media (max-width: 990px) and (min-width: 768px){
-            width: 190px;
+            width: 120px;
         }
     }
     input::-webkit-input-placeholder {
@@ -94,4 +96,28 @@
 }
 .my-bottom-border{
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.media-nav{
+    display: none;
+    @media (max-width:1600px) and (min-width: 768px){
+        display: block;
+    }
+}
+.default-nav {
+    @media (max-width:1600px) and (min-width: 768px){
+        display: none;
+    }
+}
+
+.default-logo {
+    @media (max-width: 990px) and (min-width: 768px){
+        display: none;
+    }
+}
+.media-logo {
+    display: none;
+    @media (max-width: 990px) and (min-width: 768px){
+        display: block;
+    }
 }
