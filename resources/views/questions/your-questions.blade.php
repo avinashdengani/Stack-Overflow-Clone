@@ -17,7 +17,7 @@
                                 <strong class="d-block">{{ $question->votes_count }}</strong>
                                 {{Str::plural('Vote', $question->votes_count)}}
                             </div>
-                            <a href="{{$question->url}}" class="nav-link">
+                            <a href="{{ asset($question->url) }}" class="nav-link">
                                 <div class="text-center mb-3 answers {{ $question->answer_style }}">
                                         <strong class="d-block">{{ $question->answers_count }}</strong>
                                         {{Str::plural('Answer', $question->answers_count)}}
@@ -30,7 +30,7 @@
                         </div>
                         <div class="media-body">
                             <div class="d-flex justify-content-between">
-                                <h4><a href="{{ $question->url }}">{{ $question->title }}</a></h4>
+                                <h4><a href="{{ asset($question->url) }}">{{ $question->title }}</a></h4>
                                 <div>
                                     @can('update', $question)
                                         <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">
