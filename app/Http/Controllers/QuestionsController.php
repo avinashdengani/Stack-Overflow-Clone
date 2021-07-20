@@ -113,4 +113,9 @@ class QuestionsController extends Controller
         }
         abort(403, 'Access Denied');
     }
+    public function yourQuestions()
+    {
+        $questions = auth()->user()->questions()->with('owner')->latest('updated_at')->paginate(10);
+        return view('questions.your-questions', compact(['questions']));
+    }
 }
