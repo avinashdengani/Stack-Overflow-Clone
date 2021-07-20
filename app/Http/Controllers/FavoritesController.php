@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritesController extends Controller
 {
+    public function index()
+    {
+       $favoriteQuestions = Auth()->user()->views()->with('owner')->where('is_favorite', 1)->search()->latest('updated_at')->paginate(10);
+       return view('questions.favorites', compact(['favoriteQuestions']));
+    }
     public function favorite(Question $question)
     {
         $question->favoritesUserId()->update(['is_favorite' => 1]);
