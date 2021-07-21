@@ -8,6 +8,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Notifications\MarkedAsBestAnswer;
 use App\Notifications\NewReplyAdded;
+use App\Notifications\UnmarkedAsBestAnswer;
 use Illuminate\Http\Request;
 
 class AnswersController extends Controller
@@ -71,6 +72,7 @@ class AnswersController extends Controller
     {
         $this->authorize('markAsBest', $answer);
         $answer->question->unmarkBestAnswer($answer);
+        $answer->author->notify(new UnmarkedAsBestAnswer($answer));
         session()->flash('success', 'Answer has been Unmarked from BEST ANSWER successfully!');
         return redirect()->back();
     }
