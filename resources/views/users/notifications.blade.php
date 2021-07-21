@@ -11,14 +11,22 @@
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach ($notifications as $notification )
-                                <li class="list-group-item">
-                                    @if ($notification->type === \App\Notifications\NewReplyAdded::class)
+                                @if ($notification->type === \App\Notifications\NewReplyAdded::class)
+                                    <li class="list-group-item">
                                         Someone has answered to your question. <strong>{{$notification->data['question']['title']}}</strong>
                                         <a href="{{route('questions.show', $notification->data['question']['slug'])}}" class="btn btn-sm btn-info text-white float-right">
                                         View Question
                                         </a>
-                                    @endif
-                                </li>
+                                    </li>
+                                @endif
+                                @if ($notification->type === \App\Notifications\NewFavoriteMarked::class)
+                                    <li class="list-group-item">
+                                        Someone has marked your question as favorite <strong>{{$notification->data['question']['title']}}</strong>
+                                            <a href="{{route('questions.show', $notification->data['question']['slug'])}}" class="btn btn-sm btn-info text-white float-right">
+                                            View Question
+                                            </a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
