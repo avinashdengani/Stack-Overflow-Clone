@@ -72,6 +72,11 @@ class Question extends Model
         $this->best_answer_id = $answer->id;
         $this->save();
     }
+    public function unmarkBestAnswer(Answer $answer)
+    {
+        $this->best_answer_id = null;
+        $this->save();
+    }
     public function viewsCountIncrement(Question $question)
     {
         if( (auth()->check()) && ($question->owner->id != auth()->id()) && !($question->is_viewed)) {
