@@ -2,6 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Models\Answer;
+use App\Models\Question;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -16,9 +18,9 @@ class MarkedAsBestAnswer extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( Answer $answer)
     {
-        //
+        $this->answer = $answer;
     }
 
     /**
@@ -29,7 +31,7 @@ class MarkedAsBestAnswer extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -41,8 +43,8 @@ class MarkedAsBestAnswer extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('Congratulations. Question owner marked your answer as best answer')
+                    ->action('View Question', url($this->answer->question->url))
                     ->line('Thank you for using our application!');
     }
 
@@ -55,7 +57,7 @@ class MarkedAsBestAnswer extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'answer' => $this->answer
         ];
     }
 }
