@@ -57,7 +57,8 @@ class MarkedAsBestAnswer extends Notification
     public function toArray($notifiable)
     {
         return [
-            'answer' => $this->answer
+            'answer' => $this->answer,
+            'question' => $this->answer->question
         ];
     }
 }
