@@ -43,10 +43,10 @@
                                 @endauth
 
                                 @can('markAsBest', $answer)
-                                    <form action="{{route('answers.bestAnswer', $answer->id)}}" method="POST" class="d-inline m-0">
+                                    <form action="{{route($answer->is_best_answer ? 'answers.unmarkBestAnswer': 'answers.markBestAnswer', $answer->id)}}" method="POST" class="d-inline m-0">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" title="Mark as Best answer" class="btn p-0  {{$answer->best_answer_style}}"><i class="fa fa-check fa-2x" ></i></button>
+                                        <button type="submit" title="{{$answer->is_best_answer ? 'Unmark from Best answer' : 'Mark as best answer' }}" class="btn p-0  {{$answer->best_answer_style}}"><i class="fa fa-check fa-2x" ></i></button>
                                     </form>
                                 @else
                                     @if ($answer->is_best_answer)
