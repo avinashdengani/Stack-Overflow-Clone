@@ -29,7 +29,8 @@ Route::get('questions/favorites', [FavoritesController::class, 'index'])->name('
 Route::get('questions/your-questions', [QuestionsController::class, 'yourQuestions'])->name('questions.your-questions')->middleware(['auth']);
 Route::get('questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
 Route::resource('questions.answers', AnswersController::class)->except(['index', 'create', 'show']);
-Route::put('answers/{answer}/best-answer', [AnswersController::class, 'bestAnswer'])->name('answers.bestAnswer');
+Route::put('answers/{answer}/mark-best-answer', [AnswersController::class, 'markbestAnswer'])->name('answers.markBestAnswer');
+Route::put('answers/{answer}/unmark-best-answer', [AnswersController::class, 'unmarkBestAnswer'])->name('answers.unmarkBestAnswer');
 Route::put('questions/{question}/favorite',[FavoritesController::class, 'favorite'] )->name('questions.favorite');
 Route::put('questions/{question}/unfavorite',[FavoritesController::class, 'unfavorite'] )->name('questions.unfavorite');
 Route::post('questions/{question}/vote/{vote}',[VotesController::class, 'voteQuestion'])->name('questions.vote');
