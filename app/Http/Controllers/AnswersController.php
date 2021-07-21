@@ -59,12 +59,19 @@ class AnswersController extends Controller
         session()->flash('success', 'Your answer has been deleted successfully!');
         return redirect()->back();
     }
-    public function bestAnswer(Answer $answer)
+    public function markBestAnswer(Answer $answer)
     {
         $this->authorize('markAsBest', $answer);
         $answer->question->markBestAnswer($answer);
         $answer->author->notify(new MarkedAsBestAnswer($answer));
         session()->flash('success', 'Answer has been marked as BEST ANSWER successfully!');
+        return redirect()->back();
+    }
+    public function unmarkBestAnswer(Answer $answer)
+    {
+        $this->authorize('markAsBest', $answer);
+        $answer->question->unmarkBestAnswer($answer);
+        session()->flash('success', 'Answer has been Unmarked from BEST ANSWER successfully!');
         return redirect()->back();
     }
 }
