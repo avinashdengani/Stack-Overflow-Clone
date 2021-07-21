@@ -35,6 +35,14 @@
                                             </a>
                                     </li>
                                 @endif
+                                @if ($notification->type === \App\Notifications\UnmarkedAsBestAnswer::class)
+                                    <li class="list-group-item">
+                                        Sorry! your answer has been unmarked from Best Answer. <strong class="d-inline">{!! Str::limit($notification->data['answer']['body'], 20) !!}</strong>
+                                            <a href="{{route('questions.show', $notification->data['question']['slug'])}}" class="btn btn-sm btn-info text-white float-right">
+                                            View Question
+                                            </a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
