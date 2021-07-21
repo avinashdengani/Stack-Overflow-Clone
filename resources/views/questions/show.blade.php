@@ -50,7 +50,7 @@
                                     <a href="{{route('login')}}" title="Up Vote" class="d-block text-center text-black-50"><i class="fa fa-caret-up fa-3x" ></i></a>
                                     @endauth
                                     <div class="d-block">
-                                        <h4 class="votes-count-text text-muted @auth @if ($question->votes_count < 0 || $question->votes_count > 9) m-0 text-center @endif @endauth">{{$question->votes_count}}</h4>
+                                        <h4 class="votes-count-text text-muted text-center m-0">{{$question->votes_count}}</h4>
                                     </div>
                                     @auth
                                         <form action="{{route('questions.vote', [$question->id, -1])}}" method="POST" class="mb-0">
@@ -80,7 +80,7 @@
                                     @else
                                         <i class="fa fa-star-o fa-2x text-golden d-block" ></i>
                                     @endcan
-                                    <h4 class="@if ($question->favorites_count > 0 || $question->favorites_count < 9) ml-2 @endif mt-1 {{$question->favorite_style}}">{{$question->favorites_count}}</h4>
+                                    <h4 class=" ml-2 mt-1 {{$question->favorite_style}}">{{$question->favorites_count}}</h4>
                                     @can('update', $question)
                                         <div class="d-block  mt-3">
                                             <a

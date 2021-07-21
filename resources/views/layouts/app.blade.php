@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container-fluid">
                 <a class="navbar-brand default-logo" href="{{ url('/') }}"> <img src="{{asset('images/logo/logo.png')}}" alt="logo" width="40" height="40">Stack Overflow Clone</a>
                 <a class="navbar-brand media-logo" href="{{ url('/') }}"> <img src="{{asset('images/logo/logo.png')}}" alt="logo" width="40" height="40"></a>

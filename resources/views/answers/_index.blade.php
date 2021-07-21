@@ -27,7 +27,7 @@
                                     <a href="{{route('login')}}" title="Up Vote" class="d-block text-center text-black-50"><i class="fa fa-caret-up fa-3x" ></i></a>
                                 @endauth
                                 <div class="d-block">
-                                    <h4 class="votes-count-text text-muted @auth @if ($answer->votes_count < 0 || $answer->votes_count > 9) m-0 text-center @endif @endauth">{{$answer->votes_count}}</h4>
+                                    <h4 class="votes-count-text text-muted m-0 text-center">{{$answer->votes_count}}</h4>
                                 </div>
                                 @auth
                                     <form action="{{route('answers.vote', [$answer->id, -1])}}" method="POST" class="mb-0">
